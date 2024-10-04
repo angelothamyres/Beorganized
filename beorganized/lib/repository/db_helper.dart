@@ -7,8 +7,8 @@ class DBHelper {
   static const _sql = '''
   CREATE TABLE $_tableName(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name VARCHAR(50) NOT NULL,
-    date VARCHAR(50) NOT NULL,
+    nomeTarefa VARCHAR(50) NOT NULL,
+    date VARCHAR(50) NOT NULL
    );
 ''';
 

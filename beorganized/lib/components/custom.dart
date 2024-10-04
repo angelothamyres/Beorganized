@@ -23,6 +23,7 @@ class Custom extends StatelessWidget {
           labelText: label,
           border: const OutlineInputBorder(),
         ),
+        controller: controler,
       ),
     );
   }

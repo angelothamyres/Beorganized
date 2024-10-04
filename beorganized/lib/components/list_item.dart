@@ -1,4 +1,6 @@
+import 'package:beorganized/components/bottom_sheet_edit.dart';
 import 'package:beorganized/model/task.dart';
+import 'package:beorganized/repository/tasks_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:slideable/slideable.dart';
 
@@ -21,7 +23,16 @@ class ListItem extends StatelessWidget {
               Icons.edit,
               color: Colors.blue,
             ),
-            onPress: () {},
+            onPress: () {
+              showModalBottomSheet(
+                context: context, 
+                isScrollControlled: true,
+                builder: (BuildContext context){
+          return BottomSheetEdit(
+            task: task,
+          );
+       } );
+            },
             backgroudColor: Colors.transparent,
           ),
           ActionItems(
@@ -29,7 +40,9 @@ class ListItem extends StatelessWidget {
               Icons.delete,
               color: Colors.red,
             ),
-            onPress: () {},
+            onPress: () {
+              TasksRepository.delete(task.id!);
+            },
             backgroudColor: Colors.transparent,
           ),
         ],
@@ -56,32 +69,22 @@ class ListElement extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Row(
-        children: [
-          CircleAvatar(
-            backgroundColor:  const Color(0xffD7E3F8),
-            child: Text(
+      title: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+            children: [ Text(
               task.nomeTarefa,
               style: const TextStyle(
-                color: Colors.white,
+                
               ),
             ),
-          ),
-          const SizedBox(
+            const SizedBox(
             width: 16,
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
+            Text(
                 task.date,
                 style: Theme.of(context).textTheme.titleMedium,
               ),
-              
-            ],
-          ),
-        ],
-      ),
+        ]),
     );
   }
 }

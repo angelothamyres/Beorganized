@@ -5,6 +5,7 @@ class TasksRepository {
   static const _tableName = 'tasks';
 
   static Future<int> insert(Map<String, Object?> map) async {
+    
     final db = await DBHelper.getInstancia();
     return await db.insert(_tableName, map);
   }

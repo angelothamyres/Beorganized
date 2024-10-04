@@ -30,9 +30,9 @@ class MyBottomSheet extends StatelessWidget {
                         controler: nomeTarefaController,
                         validator: (value) {
                           if (value != null && value.isEmpty) {
-                        return "O nome da tarefa não pode ficar em branco";
-                      }
-                      return null;
+                            return "O nome da tarefa não pode ficar em branco";
+                          }
+                          return null;
                         },
                       ),
                       Custom(
@@ -40,9 +40,9 @@ class MyBottomSheet extends StatelessWidget {
                         controler: dateController,
                         validator: (value) {
                           if (value != null && value.isEmpty) {
-                        return "A data não pode ficar em branco";
-                      }
-                      return null;
+                            return "A data não pode ficar em branco";
+                          }
+                          return null;
                         },
                       ),
                       ElevatedButton(
@@ -51,16 +51,27 @@ class MyBottomSheet extends StatelessWidget {
                               var task = Task(
                                   nomeTarefa: nomeTarefaController.text,
                                   date: dateController.text);
-                              task.id = await TasksRepository.insert(task.toMap());
-                            if (task.id != 0) {
-                          SnackBar(
-                                content: Text('${task.nomeTarefa} cadastrada com sucesso'));
-                            } else {
-                             const SnackBar(
-                                content: Text(
-                                  'Não foi possível adicionar a tarefa'
-                                ));
-                            }
+                              task.id =
+                                  await TasksRepository.insert(task.toMap());
+                              MaterialBanner message;
+                              if (task.id != 0) {
+                                message = MaterialBanner(
+                                    content: Text(
+                                        '${task.nomeTarefa} cadastrada com sucesso'),
+                                    actions: [
+                                      TextButton(
+                                          onPressed: () {ScaffoldMessenger.of(context).clearMaterialBanners();}, child: Text('OK'))
+                                    ]);
+                              } else {
+                                message = MaterialBanner(
+                                    content: Text('Não rolou'),
+                                    actions: [
+                                      TextButton(
+                                          onPressed: () {ScaffoldMessenger.of(context).clearMaterialBanners();}, child: Text('OK'))
+                                    ]);
+                              }
+                              ScaffoldMessenger.of(context)
+                                  .showMaterialBanner(message);
                             }
                           },
                           child: const Text('Adicionar')),
